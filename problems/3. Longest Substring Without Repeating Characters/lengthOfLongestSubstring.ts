@@ -16,11 +16,17 @@ function lengthOfLongestSubstring(s: string): number {
     return res;
 };
 
+// ==================================
+// test  已通过
 
 // const str = 'abcabcbb';
 // const str = 'pwwkew';
 const str = 'add';
-
 console.log(lengthOfLongestSubstring(str));
+//
+// test end
+// ==================================
 
-export default {};
+export default {
+    lengthOfLongestSubstring
+};

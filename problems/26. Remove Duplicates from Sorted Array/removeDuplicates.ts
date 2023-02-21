@@ -2,9 +2,6 @@ function removeDuplicates(nums: number[]): number {
     let count: number = 0;
 
     nums.forEach((n, i) => {
-        console.log(i)
-        console.log(nums.indexOf(nums[i]))
-
         if (nums.indexOf(nums[i]) < i) {
             nums.splice(i - count, 1)
             count += 1;
