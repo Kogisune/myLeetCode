@@ -63,10 +63,11 @@ function createLink(arr: number[]): ListNode | null {
     return link ? link : null;
 }
 
-const test = [1, 2, 3, 4, 5, 6, 7];
+const test = [1, 2, 3, 4];
+// const expected = [2,1,4,3];
 const testLink = createLink(test);
 
 console.log(testLink);
-swapPairs(testLink);
+console.log(swapPairs(testLink));
 
 export default {}

@@ -97,7 +97,4 @@ lists.forEach((item, index) => {
 
 console.log(mergeKLists(links));
 
-console.log('done');
-console.log('end');
-
 export default {} 

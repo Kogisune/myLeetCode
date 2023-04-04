@@ -56,11 +56,10 @@ function createLink(arr: number[]): ListNode | null {
 
 // ==================================
 // test
-
 // const testArr = [1, 2, 3, 4, 5, 6, 7, 8];
-const testArr = [1, 2, 3];
+const testArr = [1, 2, 3, 4, 5];
 const testK = 3;
-
+// const expected = [3,2,1,4,5];
 const testLink = createLink(testArr);
 console.log(reverseKGroup(testLink, testK));
 

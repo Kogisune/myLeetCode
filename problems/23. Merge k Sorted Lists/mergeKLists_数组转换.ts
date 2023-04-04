@@ -7,8 +7,8 @@ class ListNode {
     }
 }
 
+// 用数组转换
 function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
-    // 用数组转换
     if (lists.length == 0) return null;
     let container: number[] = [];
     lists.forEach((link) => {
@@ -64,7 +64,8 @@ function xier(arr: number[] = []) {
 
 // test
 // const lists = [[1, 4, 5], [1, 3, 4], [2, 6]];
-const lists = [[], [-1, 5, 11], [], [6, 10]];
+// const expected = [1,1,2,3,4,4,5,6];
+const lists = [[], [-1, 5, 11], [], [6, 10]];  // [-1, 5, 6, 10, 11]
 const links: any = [];
 
 lists.forEach((item, index) => {
@@ -73,8 +74,5 @@ lists.forEach((item, index) => {
 });
 
 console.log(mergeKLists(links));
-
-console.log('done');
-console.log('end');
 
 export default {} 
