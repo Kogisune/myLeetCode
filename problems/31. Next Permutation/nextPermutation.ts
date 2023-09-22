@@ -3,49 +3,63 @@
  */
 function nextPermutation(nums: number[]): void {
     const numslen = nums.length;
-    let numset = Array.from(new Set(nums));
-    let numtmp: number[] = [];
+    if (numslen === 1) {
+        return;
+    } else if (numslen === 2) {
+        nums.reverse();
+    } else {
+        let numtmp: number[] = [];
+        // 从最后一位开始往前位移
+        for (let i = 0; i <= numslen - 1; i++) {
+            let n = nums.pop();
+            if (typeof n !== 'number') break;
 
-    // 从最后一位开始往前位移
-    for (let i = 0; i < numslen - 1; i++) {
-        if (!nums.length) {
-            nums.sort();
-        };
+            // 取值
+            let n_next: number | null = null;
+            numtmp.sort((a, b) => { return a - b });
+            for (let n_tmp of numtmp) {
+                if (n_tmp > n) {
+                    n_next = n_tmp;
+                    break;
+                }
+            }
 
-        let n = nums.pop();
-        if (typeof n !== 'number') break;
+            numtmp.push(n);
 
-        // 如果没有比当前值更大的， 继续位移
-        let n_next = hasLagerNum(n, numtmp);
-        if (i == 0 || n_next === null) {
-            numtmp.push(n)
-            continue;
+            if (n_next === null) {
+                // 如果没有比当前值更大的， 继续位移
+                continue;
+            } else {
+                nums.push(n_next); // 进位的值
+
+                // 从 numtmp 移除已进位的数 一次
+                for (let i in numtmp) {
+                    if (numtmp[i] === n_next) {
+                        numtmp.splice(Number(i), 1);
+                        break;
+                    }
+                }
+
+                break; // 跳出循环
+            }
         }
 
-        nums.push(n_next);
-
-
-        // 移除已换的那个数
-
         // 把剩下的排序后合并到原数组
-        nums.concat(numtmp.sort())
+        numtmp.sort((a, b) => { return a - b })
+        for (let n_tmp of numtmp) {
+            nums.push(n_tmp);
+        }
     }
-
 };
-
-function hasLagerNum(num: number, arr: number[]): number | null {
-    for (let n of arr) {
-        if (n > num) return n
-    }
-    return null;
-}
 
 
 // ==================================
 // test
-const nums: number[] = [1, 2, 3];
-// const expected = [1,3,2];
+const nums: number[] = [11, 12, 0, 27, 3, 11, 21, 9, 0, 15, 26, 27, 17, 24, 0, 16, 4, 17, 14, 8, 15, 8, 2, 16, 10, 6, 6, 24, 16, 2, 18, 19, 6, 10, 17, 10, 21, 0, 11, 13, 7, 7, 2, 16, 24, 25, 2, 20, 12, 9, 20, 19];
+// Explanation = "[11,12,0,27,3,11,21,9,0,15,26,27,17,24,0,16,4,17,14,8,15,8,2,16,10,6,6,24,16,2,18,19,6,10,17,10,21,0,11,13,7,7,2,16,24,25,2,20,12,19,9,20]";
 
-console.log(nextPermutation(nums));
+nextPermutation(nums);
 
-// export default {};
+console.log(nums);
+
+export default {};
