@@ -1,64 +1,50 @@
-let min_numb: number = 0;
-let max_numb: number = 0;
-
+let min_numb = 0;
 function combinationSum(candidates: number[], target: number): number[][] {
-    // const candidates_sort = [...candidates].sort((a, b) => { return a - b })
-    let res: number[][] = [];
+    if (!min_numb) min_numb = candidates.sort((a, b) => { return a - b })[0]
 
+    let _map = new Map();
 
-    if (!min_numb || !max_numb) {
-        let [min, max] = minMax(candidates)
-        min_numb = min;
-        max_numb = max;
-    }
-
-    if (target < min_numb) return res;
+    if (target < min_numb) return [];
 
     for (let n of candidates) {
         if (n > target) continue;
         else if (n == target) {
-            res.push([n]);
-            break
+            _map.set(`${n}`, [n])
+            continue
         } else {
             let new_target = target - n;
             let new_res = combinationSum(candidates, new_target);
 
-            if (new_res.length && isTwoDimensionalNumberArray(new_res)) {
+            if (new_res.length) {
                 for (let i in new_res) {
                     const sum = n + new_res[i].reduce((count, n) => { return count + n }, 0)
-                    if (sum == target) {
-                        // TODO 合并相同项
-                        res.push([n].concat(new_res[i]))
+                    const _mArr = [...[n].concat(new_res[i])].sort()
+                    const _mkey = _mArr.join('+')
+                    if (sum == target && !_map.has(_mkey)) {
+                        _map.set(_mkey, _mArr)
                     }
                 }
             }
         }
-
-        //     if (child_res.every((e: any, index) => { return e instanceof Array })) {
-
-        //     } else {
-
-        //         return combinationSum(candidates, n)
-        //     }
     }
 
-    return res
+    return Array.from(_map.values())
 };
 
-function isTwoDimensionalNumberArray(array: any): array is number[][] {
-    return Array.isArray(array) && array.every(
-        subArray => Array.isArray(subArray) && subArray.every(
-            element => typeof element === 'number'
-        )
-    );
-}
+// function isTwoDimensionalNumberArray(array: any): array is number[][] {
+//     return Array.isArray(array) && array.every(
+//         subArray => Array.isArray(subArray) && subArray.every(
+//             element => typeof element === 'number'
+//         )
+//     );
+// }
 
-function minMax(array: number[]): [number, number] {
-    return array.reduce(([min, max], value) => [
-        Math.min(min, value),
-        Math.max(max, value)
-    ], [Infinity, -Infinity]);
-}
+// function minMax(array: number[]): [number, number] {
+//     return array.reduce(([min, max], value) => [
+//         Math.min(min, value),
+//         Math.max(max, value)
+//     ], [0, 0]);
+// }
 
 
 // ==================================
@@ -98,6 +84,7 @@ const target = 15
 // 11 + combinationSum(candidates, 4)
 
 // 4 + combinationSum(candidates, 11)
+//// 4 + (4 + combinationSum(candidates, 7))
 
 
 // Input: candidates = [2,3,5], target = 8
@@ -117,6 +104,7 @@ const target = 15
 // Output: [[8,3],[7,4],[4,4,3]]
 
 // console.log(nextPermutation([3], [4, 3, 2, 1]))
+
 
 console.log(combinationSum(candidates, target))
 console.log('end')
