@@ -2,61 +2,29 @@ function combinationSum2(candidates: number[], target: number): number[][] {
     let res: number[][] = []
 
     function bt(i: number, nMap: any, sum: number) {
-        if (nMap.has(i) || sum > target) return
+        if (i in [...nMap.keys()] || sum > target) return
 
         if (sum == target) {
-            console.log(nMap)
-            res.push(nMap.values());
-
+            res.push([...nMap.values()]);
             return;
         }
 
         for (let index = i; index < candidates.length; index++) {
-            // console.log(i)
-            // console.log(index)
-            // console.log(res)
+            if (sum + candidates[index] > target) continue;
 
             nMap.set(i, candidates[index])
-            // arr.push();
 
-            let numbSum = Array.from(nMap.values()).reduce((s: number, n: any) => { return s + n }, 0)
+            let numbSum = [...nMap.values()].reduce((s: number, n: any) => { return s + n }, 0)
             bt(index, nMap, numbSum)
 
             nMap.delete(i);
         }
-
     }
 
-    bt(0, [], 0);
+    bt(0, new Map(), 0);
 
-    return Array.from(res.values())
+    return res;
 };
-
-/**
- * 下一个更大的数组 
- * @param arr 
- * @param nums
- */
-// function nextPermutation(arr: number[], nums: number[]) {
-//     for (let arr_index in arr) {
-//         let _index = arr.length - 1 - Number(arr_index);
-//         let _numb = null
-
-//         if (arr[_index] < nums[nums.length - 1]) {
-//             _numb = nums[nums.indexOf(arr[_index]) + 1]
-//             arr[_index] = _numb || 0
-//             break
-//         }
-
-//         if (arr[_index] == nums[nums.length - 1]) {
-//             _numb = nums[0];
-//             arr[_index] = _numb || 0
-//         }
-
-//     }
-
-//     return arr
-// }
 
 
 // ==================================
