@@ -35,8 +35,11 @@ function combinationSum(candidates: number[], target: number): number[][] {
 // test
 //
 
-const candidates = [3, 12, 9, 11, 6, 7, 8, 5, 4]
-const target = 15
+// const candidates = [3, 12, 9, 11, 6, 7, 8, 5, 4]
+// const target = 15
+
+const candidates = [2, 3, 5]
+const target = 8
 
 // Input: candidates = [2,3,5], target = 8
 // Output: [[2,2,2,2],[2,3,3],[3,5]]
